@@ -1,0 +1,54 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "watch",
+      "group": "build",
+      "problemMatcher": [],
+      "label": "dev: build and watch",
+      "detail": "npm run watch",
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "clear": false,
+        "group": "dev server"
+      }
+    },
+    {
+      "type": "npm",
+      "script": "start-dev",
+      "group": "build",
+      "problemMatcher": [],
+      "label": "dev: start-dev",
+      "detail": "nodemon ./dist/server/app.js --watch ./dist/server/app.js",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "clear": false,
+        "group": "dev server"
+      }
+    },
+    {
+      "type": "npm",
+      "script": "test-watch",
+      "group": "build",
+      "problemMatcher": [],
+      "label": "dev: test-watch",
+      "detail": "jest --watch",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "clear": false,
+        "group": "dev server"
+      }
+    }
+  ]
+}
