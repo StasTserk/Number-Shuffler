@@ -5,6 +5,7 @@ export const loadShuffled = createAsyncThunk<
     number,
     { rejectValue: string }
 >('numbers/loadShuffled', async (numberNeeded, { rejectWithValue }) => {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     const numbers = Array(numberNeeded)
         .fill(0)
         .map((_, i) => i);

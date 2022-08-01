@@ -1,13 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { loadShuffled } from './loadShuffled';
 
 type NumbersState = {
+    amountWanted: number;
     numbers: number[];
     status: 'loading' | 'error' | 'ready';
     error?: string;
 };
 
 const initialState: NumbersState = {
+    amountWanted: 10000,
     numbers: [],
     status: 'ready',
 };
@@ -15,7 +17,11 @@ const initialState: NumbersState = {
 export const numberSlice = createSlice({
     name: 'numbers',
     initialState,
-    reducers: {},
+    reducers: {
+        setAmountWanted(state, action: PayloadAction<number>) {
+            state.amountWanted = action.payload;
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(loadShuffled.pending, (state) => {
             state.status = 'loading';
