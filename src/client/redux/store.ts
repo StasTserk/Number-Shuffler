@@ -1,15 +1,22 @@
 import { bindActionCreators, configureStore } from '@reduxjs/toolkit';
 import { loadShuffled } from './loadShuffled';
 import { numberSlice } from './numbersReducer';
+import { settingsSlice } from './settingsReducer';
 
 export const store = configureStore({
     reducer: {
         numbers: numberSlice.reducer,
+        settings: settingsSlice.reducer,
     },
 });
 
 export const numberActions = bindActionCreators(
     { ...numberSlice.actions, loadShuffled },
+    store.dispatch
+);
+
+export const settingsActions = bindActionCreators(
+    { ...settingsSlice.actions },
     store.dispatch
 );
 
