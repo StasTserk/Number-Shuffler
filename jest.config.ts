@@ -178,5 +178,12 @@ export default {
 
     // Whether to use watchman for file crawling
     // watchman: true,
-};
 
+    globals: {
+        'ts-jest': {
+            diagnostics: {
+                ignoreCodes: ['TS151001'],
+            },
+        },
+    },
+};
