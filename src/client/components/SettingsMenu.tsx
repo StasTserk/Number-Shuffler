@@ -1,5 +1,6 @@
 import * as React from 'react';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -57,6 +58,15 @@ export const SettingsMenu = ({
                     'aria-labelledby': 'settings-button',
                 }}>
                 <MenuItem
+                    href="https://github.com/StasTserk/Number-Shuffler"
+                    component="a"
+                    divider>
+                    <ListItemIcon>
+                        <GitHubIcon />
+                    </ListItemIcon>
+                    <ListItemText>Github</ListItemText>
+                </MenuItem>
+                <MenuItem
                     selected={theme === 'light'}
                     onClick={() => {
                         handleClose();
@@ -79,6 +89,7 @@ export const SettingsMenu = ({
                     <ListItemText>System Default</ListItemText>
                 </MenuItem>
                 <MenuItem
+                    divider
                     selected={theme === 'dark'}
                     onClick={() => {
                         handleClose();
