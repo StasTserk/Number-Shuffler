@@ -1,7 +1,15 @@
-import { Box, Paper, SxProps, Typography } from '@mui/material';
+import ReportProblemIcon from '@mui/icons-material/ReportProblem';
+import {
+    Box,
+    CircularProgress,
+    Paper,
+    SxProps,
+    Typography,
+} from '@mui/material';
 import * as React from 'react';
 import { RootState } from '../redux/store';
 import { connect } from 'react-redux';
+import { RequestStatus } from '../../shared/requestStatus';
 
 const viewerStyle: SxProps = {
     p: 2,
@@ -17,10 +25,13 @@ const numberGridStyle: SxProps = {
 
 type NumberViewerProps = {
     numbers: number[];
+    status: RequestStatus;
 };
 
-const mapStateToProps = (state: RootState): NumberViewerProps => {
-    return { numbers: state.numbers.numbers };
+const mapStateToProps = ({
+    numbers: { numbers, status },
+}: RootState): NumberViewerProps => {
+    return { numbers, status };
 };
 
 const NumberItem = ({ number }: { number: number }): JSX.Element => {
@@ -31,15 +42,24 @@ const NumberItem = ({ number }: { number: number }): JSX.Element => {
     );
 };
 
-export const NumberViewer = ({ numbers }: NumberViewerProps): JSX.Element => {
+export const NumberViewer = ({
+    numbers,
+    status,
+}: NumberViewerProps): JSX.Element => {
     return (
         <Paper sx={viewerStyle} elevation={2}>
             <Typography variant="body1">Randomly Generated Numbers:</Typography>
-            <Box sx={numberGridStyle}>
-                {numbers.map((n) => (
-                    <NumberItem number={n} key={n} />
-                ))}
-            </Box>
+            {status === 'loading' && <CircularProgress />}
+            {status === 'error' && (
+                <ReportProblemIcon color="error" fontSize="large" />
+            )}
+            {status === 'ready' && (
+                <Box sx={numberGridStyle}>
+                    {numbers.map((n) => (
+                        <NumberItem number={n} key={n} />
+                    ))}
+                </Box>
+            )}
         </Paper>
     );
 };

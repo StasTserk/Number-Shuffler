@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RequestStatus } from '../../shared/requestStatus';
 import { loadShuffled } from './loadShuffled';
 
 type NumbersState = {
     amountWanted: number;
     numbers: number[];
-    status: 'loading' | 'error' | 'ready';
+    status: RequestStatus;
     error?: string;
 };
 

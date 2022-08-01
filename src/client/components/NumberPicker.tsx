@@ -2,6 +2,7 @@ import { SxProps } from '@mui/material';
 import { Alert, Button, Stack, TextField } from '@mui/material';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { RequestStatus } from '../../shared/requestStatus';
 import { numberActions, RootState } from '../redux/store';
 
 const pickerContainerStyle: SxProps = {
@@ -12,7 +13,7 @@ const pickerContainerStyle: SxProps = {
 type NumberPickerProps = {
     error?: string;
     amountWanted: number;
-    status: 'ready' | 'loading' | 'error';
+    status: RequestStatus;
 };
 type NumberPickerActions = {
     setAmountWanted: (amount: number) => void;
