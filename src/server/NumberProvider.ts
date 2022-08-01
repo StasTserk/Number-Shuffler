@@ -11,7 +11,9 @@ export class NumberProvider implements INumberProvider {
             return fail('amount of numbers must be positive');
         }
         if (amount > MAX_ELEMENTS) {
-            return fail('amount of numbers must be under 100000');
+            return fail(
+                `amount of numbers must be under ${MAX_ELEMENTS.toLocaleString()}`
+            );
         }
         const numbers = Array<number>(amount);
         for (let i = 0; i < amount; i++) {
