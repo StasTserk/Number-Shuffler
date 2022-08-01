@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  azure-cli: circleci/azure-cli@1.2.0
 jobs:
   build:
     docker:
@@ -54,8 +56,26 @@ jobs:
           path: ./reports/junit/
       - store_artifacts:
           path: ./reports/junit
+  deploy:
+    executor: azure-cli/azure-docker
+    steps:
+      - azure-cli/install
+      - azure-cli/login-with-service-principal
+      - attach_workspace:
+          at: ./
+      - run: zip -r ./release.zip ./dist package.json
+      - store_artifacts:
+          path: ./release.zip
+      - run: az webapp deploy --resource-group DefaultResourceGroup-WUS --name number-shuffler --src-path ./release.zip --clean true --restart true --async false
 workflows:
   build-and-test:
     jobs:
       - build
       - test
+      - deploy:
+          requires:
+            - build
+            - test
+          filters:
+            branches:
+              only: main
