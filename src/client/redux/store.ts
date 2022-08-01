@@ -1,4 +1,5 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { bindActionCreators, configureStore } from '@reduxjs/toolkit';
+import { loadShuffled } from './loadShuffled';
 import { numberSlice } from './numbersReducer';
 
 export const store = configureStore({
@@ -7,7 +8,10 @@ export const store = configureStore({
     },
 });
 
-export const numberActions = { ...numberSlice.actions };
+export const numberActions = bindActionCreators(
+    { ...numberSlice.actions, loadShuffled },
+    store.dispatch
+);
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
