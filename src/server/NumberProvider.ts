@@ -1,6 +1,6 @@
 import { fail, pass, Result } from '../shared/result';
 
-const MAX_ELEMENTS = 100000;
+const MAX_ELEMENTS = 1000000;
 export interface INumberProvider {
     GetShuffledNumbers(amount: number): Result<number[]>;
 }
