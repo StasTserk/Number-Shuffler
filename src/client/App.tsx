@@ -1,20 +1,55 @@
-import { Box } from '@mui/material';
+import { Theme } from '@mui/material';
+import { Box, ThemeProvider, useMediaQuery } from '@mui/material';
 import * as React from 'react';
 import { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Header } from './components/Header';
 import NumberPicker from './components/NumberPicker';
 import NumberViewer from './components/NumberViewer';
-import { numberActions } from './redux/store';
+import { SettingsState } from './redux/settingsReducer';
+import { numberActions, RootState } from './redux/store';
+import { darkTheme, lightTheme } from './theme';
 
-export const App = (): JSX.Element => {
+type AppProps = { theme: SettingsState['theme'] };
+const mapStateToProps = ({ settings }: RootState): AppProps => {
+    return { theme: settings.theme };
+};
+type AppActions = { loadNumbers: (amount: number) => void };
+const mapDispatchToProps = (): AppActions => ({
+    loadNumbers: numberActions.loadShuffled,
+});
+
+export const App = ({
+    theme,
+    loadNumbers,
+}: AppProps & AppActions): JSX.Element => {
     useEffect(() => {
-        numberActions.loadShuffled(1000);
-    }, []);
+        loadNumbers(10000);
+    }, [loadNumbers]);
+
+    const prefersDarkTheme = useMediaQuery('(prefers-color-scheme: dark)');
+
+    let themeToUse: Theme;
+    if (theme === 'dark' || (theme === 'system' && prefersDarkTheme)) {
+        themeToUse = darkTheme;
+    } else {
+        themeToUse = lightTheme;
+    }
+
     return (
-        <Box>
-            <Header />
-            <NumberPicker />
-            <NumberViewer />
-        </Box>
+        <ThemeProvider theme={themeToUse}>
+            <Box
+                sx={{
+                    height: '100vh',
+                    width: '100vw',
+                    backgroundColor: 'background.default',
+                }}>
+                <Header />
+                <NumberPicker />
+                <NumberViewer />
+            </Box>
+        </ThemeProvider>
     );
 };
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
