@@ -16,7 +16,7 @@ import { FixedSizeList } from 'react-window';
 
 const viewerStyle: SxProps = {
     p: 2,
-    my: 2,
+    m: 2,
     overflowY: 'auto',
     height: 'calc(100vh - 208px)',
 };
