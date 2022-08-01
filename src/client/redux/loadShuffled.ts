@@ -1,16 +1,18 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { Result } from '../../shared/result';
 
 export const loadShuffled = createAsyncThunk<
     number[],
     number,
     { rejectValue: string }
 >('numbers/loadShuffled', async (numberNeeded, { rejectWithValue }) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    const numbers = Array(numberNeeded)
-        .fill(0)
-        .map((_, i) => i);
-    if (Math.random() > 0.5) {
-        return rejectWithValue('Randomly decided to fail');
+    const response = await fetch(`/numbers?amount=${numberNeeded}`, {
+        method: 'GET',
+    });
+
+    const result = (await response.json()) as Result<number[]>;
+    if (result.kind === 'success') {
+        return result.value;
     }
-    return numbers;
+    return rejectWithValue(result.message);
 });

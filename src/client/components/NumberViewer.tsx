@@ -22,7 +22,7 @@ const numberGridStyle: SxProps = {
     gridTemplateColumns: 'repeat(auto-fit, minmax(80px, 1fr))',
     gap: 2,
 };
-
+const numberEntryStyle: SxProps = { p: 2, textAlign: 'center' };
 type NumberViewerProps = {
     numbers: number[];
     status: RequestStatus;
@@ -36,8 +36,8 @@ const mapStateToProps = ({
 
 const NumberItem = ({ number }: { number: number }): JSX.Element => {
     return (
-        <Paper variant="outlined" square sx={{ p: 2 }}>
-            {number}
+        <Paper variant="outlined" square sx={numberEntryStyle}>
+            <Typography variant="body2">{number}</Typography>
         </Paper>
     );
 };
