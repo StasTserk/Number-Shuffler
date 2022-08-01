@@ -1,5 +1,7 @@
 import { Box, Paper, SxProps, Typography } from '@mui/material';
 import * as React from 'react';
+import { RootState } from '../redux/store';
+import { connect } from 'react-redux';
 
 const viewerStyle: SxProps = {
     p: 2,
@@ -15,6 +17,10 @@ const numberGridStyle: SxProps = {
 
 type NumberViewerProps = {
     numbers: number[];
+};
+
+const mapStateToProps = (state: RootState): NumberViewerProps => {
+    return { numbers: state.numbers.numbers };
 };
 
 const NumberItem = ({ number }: { number: number }): JSX.Element => {
@@ -37,3 +43,5 @@ export const NumberViewer = ({ numbers }: NumberViewerProps): JSX.Element => {
         </Paper>
     );
 };
+
+export default connect(mapStateToProps)(NumberViewer);
