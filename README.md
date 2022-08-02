@@ -22,7 +22,7 @@ starting off with `[undefined x 10,000]` instead of the integers between 1 and 1
 we see it is not already initialized, we initialize it then -- though initializing the array beforehand does not up the complexity
 of the algorithm.
 
-## Other Solution Setails
+## Other Solution Details
 
 -   Backend details:
     -   Basic express server application.
